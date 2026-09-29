@@ -48,7 +48,7 @@
             margin-bottom: 8px;
         }
 
-        .login-box .subtitle {
+        .subtitle {
             text-align: center;
             color: #666;
             margin-bottom: 22px;
@@ -95,6 +95,14 @@
             margin-bottom: 15px;
         }
 
+        .forgot {
+            text-align: center;
+            color: #2563eb;
+            cursor: pointer;
+            margin: 5px 0 15px;
+            font-size: 14px;
+        }
+
         .switch {
             text-align: center;
             color: #2563eb;
@@ -104,6 +112,13 @@
 
         .error {
             color: #dc2626;
+            text-align: center;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .success {
+            color: #16a34a;
             text-align: center;
             margin: 10px 0;
             font-size: 14px;
@@ -274,6 +289,9 @@
             পড়াশোনার প্রয়োজনীয় সবকিছু এক জায়গায়
         </p>
 
+
+        <!-- REGISTER -->
+
         <div id="registerArea">
 
             <input
@@ -317,6 +335,9 @@
 
         </div>
 
+
+        <!-- LOGIN -->
+
         <div id="loginArea" style="display:none;">
 
             <input
@@ -340,6 +361,13 @@
                 🔐 Login
             </button>
 
+            <p
+                class="forgot"
+                onclick="showForgotPassword()"
+            >
+                🔑 Password ভুলে গেছেন?
+            </p>
+
             <button
                 class="google-btn"
                 onclick="googleLogin()"
@@ -353,7 +381,44 @@
 
         </div>
 
+
+        <!-- FORGOT PASSWORD -->
+
+        <div id="forgotArea" style="display:none;">
+
+            <h2 style="text-align:center; color:#2563eb; margin-bottom:10px;">
+                🔑 Password Reset
+            </h2>
+
+            <p style="text-align:center; color:#666; margin-bottom:18px; line-height:1.5;">
+                আপনার Account-এর Email দিন।
+                আমরা Password Reset করার একটি Link পাঠাব।
+            </p>
+
+            <input
+                id="resetEmail"
+                class="input"
+                type="email"
+                placeholder="আপনার Email"
+            >
+
+            <button
+                class="main-btn"
+                onclick="resetPassword()"
+            >
+                📧 Reset Link পাঠান
+            </button>
+
+            <p class="switch" onclick="showLogin()">
+                ← Login-এ ফিরে যান
+            </p>
+
+        </div>
+
+
         <p id="error" class="error"></p>
+
+        <p id="success" class="success"></p>
 
     </div>
 
@@ -553,6 +618,7 @@
         getAuth,
         createUserWithEmailAndPassword,
         signInWithEmailAndPassword,
+        sendPasswordResetEmail,
         GoogleAuthProvider,
         signInWithPopup,
         signOut,
@@ -587,7 +653,11 @@
     const provider = new GoogleAuthProvider();
 
 
+    // ACCOUNT CREATE
+
     window.registerUser = async function() {
+
+        clearMessages();
 
         const name =
             document.getElementById("name").value.trim();
@@ -644,7 +714,11 @@
     };
 
 
+    // LOGIN
+
     window.loginUser = async function() {
+
+        clearMessages();
 
         const email =
             document.getElementById("loginEmail").value.trim();
@@ -679,7 +753,52 @@
     };
 
 
+    // FORGOT PASSWORD
+
+    window.resetPassword = async function() {
+
+        clearMessages();
+
+        const email =
+            document.getElementById("resetEmail").value.trim();
+
+
+        if (!email) {
+
+            showError("আপনার Email লিখুন।");
+
+            return;
+
+        }
+
+
+        try {
+
+            await sendPasswordResetEmail(
+                auth,
+                email
+            );
+
+
+            showSuccess(
+                "Password Reset Link আপনার Email-এ পাঠানো হয়েছে। Email Inbox/Spam folder চেক করুন।"
+            );
+
+
+        } catch (error) {
+
+            showError(getErrorMessage(error));
+
+        }
+
+    };
+
+
+    // GOOGLE LOGIN
+
     window.googleLogin = async function() {
+
+        clearMessages();
 
         try {
 
@@ -697,7 +816,11 @@
     };
 
 
+    // LOGOUT
+
     window.logoutUser = async function() {
+
+        clearMessages();
 
         try {
 
@@ -711,6 +834,8 @@
 
     };
 
+
+    // AUTH STATE
 
     onAuthStateChanged(
         auth,
@@ -758,6 +883,8 @@
     );
 
 
+    // ERROR MESSAGE
+
     function showError(message) {
 
         document.getElementById(
@@ -766,6 +893,34 @@
 
     }
 
+
+    // SUCCESS MESSAGE
+
+    function showSuccess(message) {
+
+        document.getElementById(
+            "success"
+        ).innerText = message;
+
+    }
+
+
+    // CLEAR MESSAGES
+
+    function clearMessages() {
+
+        document.getElementById(
+            "error"
+        ).innerText = "";
+
+        document.getElementById(
+            "success"
+        ).innerText = "";
+
+    }
+
+
+    // FIREBASE ERROR TRANSLATION
 
     function getErrorMessage(error) {
 
@@ -778,6 +933,7 @@
 
         }
 
+
         if (
             error.code ===
             "auth/invalid-email"
@@ -786,6 +942,7 @@
             return "Email ঠিকভাবে লিখুন।";
 
         }
+
 
         if (
             error.code ===
@@ -796,6 +953,7 @@
 
         }
 
+
         if (
             error.code ===
             "auth/invalid-credential"
@@ -804,6 +962,17 @@
             return "Email অথবা Password ভুল।";
 
         }
+
+
+        if (
+            error.code ===
+            "auth/user-not-found"
+        ) {
+
+            return "এই Email দিয়ে কোনো Account পাওয়া যায়নি।";
+
+        }
+
 
         if (
             error.code ===
@@ -814,113 +983,7 @@
 
         }
 
-        return "কিছু একটা সমস্যা হয়েছে। আবার চেষ্টা করুন।";
 
-    }
-
-}
-
-
-window.showLogin = function() {
-
-    document.getElementById(
-        "registerArea"
-    ).style.display = "none";
-
-
-    document.getElementById(
-        "loginArea"
-    ).style.display = "block";
-
-
-    document.getElementById(
-        "error"
-    ).innerText = "";
-
-};
-
-
-window.showRegister = function() {
-
-    document.getElementById(
-        "loginArea"
-    ).style.display = "none";
-
-
-    document.getElementById(
-        "registerArea"
-    ).style.display = "block";
-
-
-    document.getElementById(
-        "error"
-    ).innerText = "";
-
-};
-
-
-window.comingSoon = function(name) {
-
-    const message =
-        document.getElementById("message");
-
-    message.innerText =
-        name + " Module পরের ধাপে সম্পূর্ণভাবে তৈরি করা হবে।";
-
-    message.style.display = "block";
-
-
-    setTimeout(
-        function() {
-
-            message.style.display = "none";
-
-        },
-        2500
-    );
-
-};
-
-
-window.searchCards = function() {
-
-    const text =
-        document.getElementById(
-            "searchInput"
-        ).value.toLowerCase();
-
-
-    const cards =
-        document.querySelectorAll(
-            ".searchable"
-        );
-
-
-    cards.forEach(
-        function(card) {
-
-            const content =
-                card.innerText.toLowerCase();
-
-
-            if (
-                content.includes(text)
-            ) {
-
-                card.style.display = "";
-
-            } else {
-
-                card.style.display = "none";
-
-            }
-
-        }
-    );
-
-};
-
-</script>
-
-</body>
-</html>
+        if (
+            error.code ===
+            "au
