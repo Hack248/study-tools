@@ -15,19 +15,19 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            color: #222;
+            background: #f4f7fb;
+            color: #1f2937;
         }
 
         header {
             background: #2563eb;
             color: white;
-            padding: 25px 15px;
+            padding: 28px 18px;
             text-align: center;
         }
 
         header h1 {
-            font-size: 28px;
+            font-size: 30px;
             margin-bottom: 8px;
         }
 
@@ -43,14 +43,24 @@
 
         .welcome {
             background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            padding: 22px;
+            border-radius: 18px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
         }
 
         .welcome h2 {
             margin-bottom: 8px;
+        }
+
+        .welcome p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            margin: 20px 0 14px;
+            font-size: 22px;
         }
 
         .tools {
@@ -62,29 +72,59 @@
         .tool {
             background: white;
             padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            border-radius: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .tool:hover {
+            transform: translateY(-3px);
+        }
+
+        .icon {
+            font-size: 32px;
+            margin-bottom: 10px;
         }
 
         .tool h3 {
-            margin-bottom: 8px;
+            margin-bottom: 7px;
         }
 
         .tool p {
-            color: #666;
+            color: #64748b;
             font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .subjects {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .subject {
+            background: white;
+            padding: 17px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
         }
 
         footer {
             text-align: center;
             padding: 30px 10px;
-            color: #777;
+            color: #64748b;
         }
 
         @media (max-width: 500px) {
-            .tools {
+            .tools,
+            .subjects {
                 grid-template-columns: 1fr;
+            }
+
+            header h1 {
+                font-size: 25px;
             }
         }
     </style>
@@ -92,60 +132,82 @@
 
 <body>
 
-    <header>
-        <h1>📚 Study Tools BD</h1>
-        <p>পড়াশোনার দরকারি সব Tools এক জায়গায়</p>
-    </header>
+<header>
+    <h1>📚 Study Tools BD</h1>
+    <p>পড়াশোনার দরকারি সব Tools এক জায়গায়</p>
+</header>
 
-    <div class="container">
+<div class="container">
 
-        <div class="welcome">
-            <h2>স্বাগতম 👋</h2>
-            <p>
-                এখানে তুমি পড়াশোনার বিভিন্ন প্রয়োজনীয়
-                Tools, Quiz, Notes এবং আরও অনেক কিছু ব্যবহার করতে পারবে।
-            </p>
+    <div class="welcome">
+        <h2>স্বাগতম 👋</h2>
+        <p>
+            পড়াশোনাকে আরও সহজ ও গোছানো করার জন্য
+            প্রয়োজনীয় Tools, Quiz, Notes এবং Progress
+            এক জায়গায় ব্যবহার করো।
+        </p>
+    </div>
+
+    <h2 class="section-title">🛠️ Study Tools</h2>
+
+    <div class="tools">
+
+        <div class="tool">
+            <div class="icon">📝</div>
+            <h3>MCQ Quiz</h3>
+            <p>বিভিন্ন বিষয়ের MCQ অনুশীলন করো এবং Score দেখো।</p>
         </div>
 
-        <div class="tools">
+        <div class="tool">
+            <div class="icon">🧮</div>
+            <h3>Calculator</h3>
+            <p>দ্রুত বিভিন্ন ধরনের হিসাব করো।</p>
+        </div>
 
-            <div class="tool">
-                <h3>📝 MCQ Quiz</h3>
-                <p>বিভিন্ন বিষয়ের MCQ অনুশীলন</p>
-            </div>
+        <div class="tool">
+            <div class="icon">⏱️</div>
+            <h3>Study Timer</h3>
+            <p>পড়াশোনার সময় এবং Break নিয়ন্ত্রণ করো।</p>
+        </div>
 
-            <div class="tool">
-                <h3>🧮 Calculator</h3>
-                <p>বিভিন্ন ধরনের হিসাব</p>
-            </div>
+        <div class="tool">
+            <div class="icon">🗒️</div>
+            <h3>My Notes</h3>
+            <p>নিজের গুরুত্বপূর্ণ পড়াশোনার নোট সংরক্ষণ করো।</p>
+        </div>
 
-            <div class="tool">
-                <h3>⏱️ Study Timer</h3>
-                <p>পড়াশোনার সময় নিয়ন্ত্রণ</p>
-            </div>
+        <div class="tool">
+            <div class="icon">📊</div>
+            <h3>Progress</h3>
+            <p>Quiz এবং পড়াশোনার অগ্রগতি দেখতে পারবে।</p>
+        </div>
 
-            <div class="tool">
-                <h3>🗒️ My Notes</h3>
-                <p>নিজের নোট সংরক্ষণ</p>
-            </div>
-
-            <div class="tool">
-                <h3>📊 Progress</h3>
-                <p>তোমার পড়াশোনার অগ্রগতি</p>
-            </div>
-
-            <div class="tool">
-                <h3>📚 Subjects</h3>
-                <p>বিভিন্ন বিষয়ের পড়াশোনা</p>
-            </div>
-
+        <div class="tool">
+            <div class="icon">🔍</div>
+            <h3>Search</h3>
+            <p>প্রয়োজনীয় Study Content দ্রুত খুঁজে বের করো।</p>
         </div>
 
     </div>
 
-    <footer>
-        © 2026 Study Tools BD
-    </footer>
+    <h2 class="section-title">📚 Subjects</h2>
+
+    <div class="subjects">
+
+        <div class="subject">📖 বাংলা</div>
+        <div class="subject">🇬🇧 ইংরেজি</div>
+        <div class="subject">➗ গণিত</div>
+        <div class="subject">🔬 বিজ্ঞান</div>
+        <div class="subject">💻 ICT</div>
+        <div class="subject">🌍 অন্যান্য</div>
+
+    </div>
+
+</div>
+
+<footer>
+    © 2026 Study Tools BD
+</footer>
 
 </body>
-  </html>
+</html>
