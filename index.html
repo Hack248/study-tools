@@ -6,25 +6,24 @@
 
     <title>Study Tools BD</title>
 
-    <text-decoration: none;
-color: inherit;>
+    <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
 
         body {
-            font-family: Arial, sans-serif;
             background: #f4f7fb;
-            color: #1f2937;
+            color: #222;
         }
 
         header {
             background: #2563eb;
             color: white;
-            padding: 28px 18px;
             text-align: center;
+            padding: 25px 15px;
         }
 
         header h1 {
@@ -33,100 +32,36 @@ color: inherit;>
         }
 
         header p {
-            font-size: 15px;
+            font-size: 16px;
         }
 
         .container {
-            width: 92%;
-            max-width: 900px;
-            margin: 25px auto;
-        }
-
-        .welcome {
-            background: white;
-            padding: 22px;
-            border-radius: 18px;
-            margin-bottom: 22px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-        }
-
-        .welcome h2 {
-            margin-bottom: 8px;
-        }
-
-        .welcome p {
-            color: #64748b;
-            line-height: 1.6;
-        }
-
-        .section-title {
-            margin: 20px 0 14px;
-            font-size: 22px;
+            max-width: 1000px;
+            margin: auto;
+            padding: 25px 15px;
         }
 
         .tools {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
         }
 
         .tool {
             background: white;
-            padding: 20px;
-            border-radius: 18px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
-            cursor: pointer;
-            transition: 0.2s;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
 
-        .tool:hover {
-            transform: translateY(-3px);
-        }
-
-        .icon {
-            font-size: 32px;
+        .tool h2 {
             margin-bottom: 10px;
-        }
-
-        .tool h3 {
-            margin-bottom: 7px;
+            color: #2563eb;
         }
 
         .tool p {
-            color: #64748b;
-            font-size: 14px;
-            line-height: 1.5;
-        }
-
-        .subjects {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-
-        .subject {
-            background: white;
-            padding: 17px;
-            border-radius: 15px;
-            text-align: center;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.06);
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px 10px;
-            color: #64748b;
-        }
-
-        @media (max-width: 500px) {
-            .tools,
-            .subjects {
-                grid-template-columns: 1fr;
-            }
-
-            header h1 {
-                font-size: 25px;
-            }
+            color: #555;
         }
     </style>
 </head>
@@ -135,80 +70,36 @@ color: inherit;>
 
 <header>
     <h1>📚 Study Tools BD</h1>
-    <p>পড়াশোনার দরকারি সব Tools এক জায়গায়</p>
+    <p>শিক্ষার্থীদের জন্য প্রয়োজনীয় সব Study Tools</p>
 </header>
 
 <div class="container">
 
-    <div class="welcome">
-        <h2>স্বাগতম 👋</h2>
-        <p>
-            পড়াশোনাকে আরও সহজ ও গোছানো করার জন্য
-            প্রয়োজনীয় Tools, Quiz, Notes এবং Progress
-            এক জায়গায় ব্যবহার করো।
-        </p>
-    </div>
-
-    <h2 class="section-title">🛠️ Study Tools</h2>
-
     <div class="tools">
 
         <div class="tool">
-            <div class="icon">📝</div>
-            <h3>MCQ Quiz</h3>
-            <p>বিভিন্ন বিষয়ের MCQ অনুশীলন করো এবং Score দেখো।</p>
+            <h2>📝 MCQ Quiz</h2>
+            <p>MCQ অনুশীলন করুন</p>
         </div>
 
         <div class="tool">
-            <div class="icon">🧮</div>
-            <h3>Calculator</h3>
-            <p>দ্রুত বিভিন্ন ধরনের হিসাব করো।</p>
+            <h2>🧮 Calculator</h2>
+            <p>সহজে হিসাব করুন</p>
         </div>
 
         <div class="tool">
-            <div class="icon">⏱️</div>
-            <h3>Study Timer</h3>
-            <p>পড়াশোনার সময় এবং Break নিয়ন্ত্রণ করো।</p>
+            <h2>📖 Notes</h2>
+            <p>গুরুত্বপূর্ণ নোট পড়ুন</p>
         </div>
 
         <div class="tool">
-            <div class="icon">🗒️</div>
-            <h3>My Notes</h3>
-            <p>নিজের গুরুত্বপূর্ণ পড়াশোনার নোট সংরক্ষণ করো।</p>
+            <h2>⏱️ Study Timer</h2>
+            <p>সময় ধরে পড়াশোনা করুন</p>
         </div>
-
-        <div class="tool">
-            <div class="icon">📊</div>
-            <h3>Progress</h3>
-            <p>Quiz এবং পড়াশোনার অগ্রগতি দেখতে পারবে।</p>
-        </div>
-
-        <div class="tool">
-            <div class="icon">🔍</div>
-            <h3>Search</h3>
-            <p>প্রয়োজনীয় Study Content দ্রুত খুঁজে বের করো।</p>
-        </div>
-
-    </div>
-
-    <h2 class="section-title">📚 Subjects</h2>
-
-    <div class="subjects">
-
-        <div class="subject">📖 বাংলা</div>
-        <div class="subject">🇬🇧 ইংরেজি</div>
-        <div class="subject">➗ গণিত</div>
-        <div class="subject">🔬 বিজ্ঞান</div>
-        <div class="subject">💻 ICT</div>
-        <div class="subject">🌍 অন্যান্য</div>
 
     </div>
 
 </div>
-
-<footer>
-    © 2026 Study Tools BD
-</footer>
 
 </body>
 </html>
