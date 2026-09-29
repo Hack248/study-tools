@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MCQ Quiz - Study Tools BD</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #1f2937;
+        }
+
+        header {
+            background: #2563eb;
+            color: white;
+            padding: 25px 15px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 27px;
+            margin-bottom: 7px;
+        }
+
+        .container {
+            width: 92%;
+            max-width: 650px;
+            margin: 25px auto;
+        }
+
+        .quiz-box {
+            background: white;
+            padding: 22px;
+            border-radius: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .question-number {
+            color: #2563eb;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .question {
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .option {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: white;
+            text-align: left;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .option:hover {
+            border-color: #2563eb;
+        }
+
+        .option.correct {
+            background: #dcfce7;
+            border-color: #16a34a;
+        }
+
+        .option.wrong {
+            background: #fee2e2;
+            border-color: #dc2626;
+        }
+
+        #nextBtn {
+            width: 100%;
+            padding: 15px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 12px;
+            background: #2563eb;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        #nextBtn:disabled {
+            background: #94a3b8;
+        }
+
+        .result {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .result h2 {
+            margin-bottom: 15px;
+        }
+
+        .restart {
+            padding: 13px 22px;
+            border: none;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📝 MCQ Quiz</h1>
+    <p>Study Tools BD</p>
+</header>
+
+<div class="container">
+
+    <div class="quiz-box">
+
+        <div id="quizArea">
+
+            <div class="question-number" id="questionNumber"></div>
+
+            <div class="question" id="question"></div>
+
+            <div id="options"></div>
+
+            <button id="nextBtn" disabled>
+                পরের প্রশ্ন →
+            </button>
+
+        </div>
+
+        <div id="resultArea" class="result" style="display:none;">
+
+            <h2>🎉 Quiz শেষ!</h2>
+
+            <p id="score"></p>
+
+            <br>
+
+            <button class="restart" onclick="restartQuiz()">
+                আবার Quiz দাও
+            </button>
+
+        </div>
+
+        <a class="home" href="index.html">
+            🏠 Home-এ ফিরে যাও
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+const questions = [
+
+    {
+        question: "বাংলাদেশের রাজধানীর নাম কী?",
+        options: [
+            "চট্টগ্রাম",
+            "ঢাকা",
+            "রাজশাহী",
+            "খুলনা"
+        ],
+        answer: 1
+    },
+
+    {
+        question: "5 + 5 = কত?",
+        options: [
+            "8",
+            "9",
+            "10",
+            "11"
+        ],
+        answer: 2
+    },
+
+    {
+        question: "সূর্য কোন ধরনের নক্ষত্র?",
+        options: [
+            "নক্ষত্র",
+            "গ্রহ",
+            "উপগ্রহ",
+            "ধূমকেতু"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "HTML-এর পূর্ণরূপ কী?",
+        options: [
+            "Hyper Text Markup Language",
+            "High Text Machine Language",
+            "Hyper Tool Markup Language",
+            "Home Text Markup Language"
+        ],
+        answer: 0
+    },
+
+    {
+        question: "এক সপ্তাহে কত দিন?",
+        options: [
+            "৫ দিন",
+            "৬ দিন",
+            "৭ দিন",
+            "৮ দিন"
+        ],
+        answer: 2
+    }
+
+];
+
+let currentQuestion = 0;
+let score = 0;
+let answered = false;
+
+const questionNumber =
+    document.getElementById("questionNumber");
+
+const question =
+    document.getElementById("question");
+
+const options =
+    document.getElementById("options");
+
+const nextBtn =
+    document.getElementById("nextBtn");
+
+function loadQuestion() {
+
+    answered = false;
+
+    nextBtn.disabled = true;
+
+    const q = questions[currentQuestion];
+
+    questionNumber.textContent =
+        "প্রশ্ন " + (currentQuestion + 1) +
+        " / " + questions.length;
+
+    question.textContent = q.question;
+
+    options.innerHTML = "";
+
+    q.options.forEach((option, index) => {
+
+        const button =
+            document.createElement("button");
+
+        button.className = "option";
+
+        button.textContent = option;
+
+        button.onclick = () =>
+            selectAnswer(button, index);
+
+        options.appendChild(button);
+
+    });
+}
+
+function selectAnswer(button, selectedIndex) {
+
+    if (answered) return;
+
+    answered = true;
+
+    const correctIndex =
+        questions[currentQuestion].answer;
+
+    const allOptions =
+        document.querySelectorAll(".option");
+
+    allOptions.forEach((option, index) => {
+
+        if (index === correctIndex) {
+            option.classList.add("correct");
+        }
+
+    });
+
+    if (selectedIndex === correctIndex) {
+
+        score++;
+
+    } else {
+
+        button.classList.add("wrong");
+
+    }
+
+    nextBtn.disabled = false;
+}
+
+nextBtn.onclick = function() {
+
+    currentQuestion++;
+
+    if (currentQuestion < questions.length) {
+
+        loadQuestion();
+
+    } else {
+
+        showResult();
+
+    }
+
+};
+
+function showResult() {
+
+    document.getElementById("quizArea")
+        .style.display = "none";
+
+    document.getElementById("resultArea")
+        .style.display = "block";
+
+    document.getElementById("score")
+        .textContent =
+        "তোমার Score: " +
+        score +
+        " / " +
+        questions.length;
+
+}
+
+function restartQuiz() {
+
+    currentQuestion = 0;
+
+    score = 0;
+
+    document.getElementById("quizArea")
+        .style.display = "block";
+
+    document.getElementById("resultArea")
+        .style.display = "none";
+
+    loadQuestion();
+
+}
+
+loadQuestion();
+
+</script>
+
+</body>
+              </html>
