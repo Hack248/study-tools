@@ -11,53 +11,54 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
     }
 
     body {
+      font-family: Arial, sans-serif;
       background: #f4f7fb;
+      min-height: 100vh;
       color: #222;
     }
 
     .container {
       width: 92%;
-      max-width: 500px;
+      max-width: 430px;
       margin: auto;
     }
 
-    .top {
+    .logo {
       text-align: center;
-      padding: 30px 0 20px;
+      padding: 35px 0 20px;
     }
 
-    .top h1 {
+    .logo h1 {
       color: #2563eb;
-      font-size: 28px;
+      font-size: 29px;
     }
 
-    .top p {
-      margin-top: 8px;
+    .logo p {
       color: #666;
+      margin-top: 8px;
     }
 
     .box {
       background: white;
-      padding: 22px;
-      margin: 15px 0;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
     }
 
-    h2 {
-      margin-bottom: 15px;
-      color: #222;
+    .box h2 {
+      margin-bottom: 18px;
+      text-align: center;
     }
 
     input {
       width: 100%;
-      padding: 13px;
-      margin: 7px 0;
-      border: 1px solid #ddd;
+      padding: 14px;
+      margin-bottom: 12px;
+      border: 1px solid #d1d5db;
       border-radius: 9px;
       font-size: 15px;
       outline: none;
@@ -69,401 +70,355 @@
 
     button {
       width: 100%;
-      padding: 13px;
-      margin-top: 10px;
       border: none;
+      padding: 14px;
       border-radius: 9px;
       background: #2563eb;
       color: white;
       font-size: 16px;
       cursor: pointer;
+      margin-bottom: 10px;
     }
 
-    button:hover {
-      opacity: 0.9;
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
-    .google-btn {
+    .google {
       background: #db4437;
     }
 
-    .logout-btn {
+    .logout {
       background: #dc2626;
-    }
-
-    .secondary-btn {
-      background: #64748b;
     }
 
     .link {
       text-align: center;
-      margin-top: 12px;
       color: #2563eb;
+      margin-top: 10px;
       cursor: pointer;
+      font-size: 14px;
     }
 
     .message {
       text-align: center;
-      margin-top: 10px;
+      margin-top: 12px;
+      line-height: 1.5;
       font-size: 14px;
     }
 
     .success {
-      color: green;
+      color: #15803d;
     }
 
     .error {
-      color: red;
+      color: #dc2626;
     }
 
     .hidden {
-      display: none;
+      display: none !important;
+    }
+
+    .home {
+      padding-bottom: 30px;
     }
 
     .welcome {
-      text-align: center;
-      padding: 15px;
       background: #2563eb;
       color: white;
-      border-radius: 12px;
+      padding: 22px;
+      border-radius: 15px;
+      text-align: center;
       margin-bottom: 15px;
     }
 
-    .profile-item {
+    .welcome h2 {
+      margin-bottom: 6px;
+    }
+
+    .user-card {
+      background: white;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+      margin-bottom: 15px;
+    }
+
+    .user-row {
       background: #f8fafc;
-      padding: 10px;
+      padding: 11px;
       border-radius: 8px;
-      margin: 7px 0;
+      margin-bottom: 8px;
       word-break: break-word;
     }
 
-    .profile-item strong {
-      color: #334155;
-    }
-
-    .card {
+    .tool {
       background: white;
       padding: 18px;
-      margin: 10px 0;
-      border-radius: 12px;
-      box-shadow: 0 3px 12px rgba(0,0,0,0.07);
-      cursor: pointer;
+      border-radius: 13px;
+      margin-bottom: 10px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.06);
     }
 
-    .card h3 {
+    .tool h3 {
       color: #2563eb;
       margin-bottom: 5px;
     }
 
-    .card p {
+    .tool p {
       color: #666;
       font-size: 14px;
-    }
-
-    .note {
-      font-size: 12px;
-      color: #777;
-      margin-top: 5px;
     }
   </style>
 </head>
 
 <body>
 
-  <!-- LOGIN / REGISTER AREA -->
-  <div id="authArea" class="container">
+  <!-- =========================
+       AUTH SECTION
+  ========================== -->
 
-    <div class="top">
+  <div id="authSection" class="container">
+
+    <div class="logo">
       <h1>📚 Study Tools BD</h1>
       <p>তোমার পড়াশোনার ডিজিটাল সঙ্গী</p>
     </div>
 
+
     <!-- LOGIN -->
+
     <div id="loginBox" class="box">
 
       <h2>🔐 Login</h2>
 
       <input
-        type="email"
         id="loginEmail"
+        type="email"
         placeholder="Email"
+        autocomplete="email"
       >
 
       <input
-        type="password"
         id="loginPassword"
+        type="password"
         placeholder="Password"
+        autocomplete="current-password"
       >
 
-      <button onclick="loginUser()">
+      <button id="loginButton">
         Login
       </button>
 
-      <button class="google-btn" onclick="googleLogin()">
-        Continue with Google
+      <button id="googleLoginButton" class="google">
+        🔵 Google দিয়ে Login
       </button>
 
-      <p
+      <div
+        id="forgotButton"
         class="link"
-        onclick="showForgotPassword()"
       >
         Forgot Password?
-      </p>
+      </div>
 
-      <p
+      <div
+        id="createButton"
         class="link"
-        onclick="showRegister()"
       >
         নতুন Account তৈরি করুন
-      </p>
+      </div>
 
-      <p id="loginMessage" class="message"></p>
+      <div
+        id="loginMessage"
+        class="message"
+      ></div>
 
     </div>
 
 
     <!-- REGISTER -->
+
     <div id="registerBox" class="box hidden">
 
       <h2>📝 Create Account</h2>
 
       <input
-        type="text"
         id="registerName"
+        type="text"
         placeholder="তোমার নাম"
+        autocomplete="name"
       >
 
       <input
-        type="tel"
         id="registerPhone"
+        type="tel"
         placeholder="মোবাইল নম্বর"
+        autocomplete="tel"
       >
 
       <input
-        type="email"
         id="registerEmail"
+        type="email"
         placeholder="Email"
+        autocomplete="email"
       >
 
       <input
-        type="password"
         id="registerPassword"
-        placeholder="Password"
+        type="password"
+        placeholder="Password (কমপক্ষে ৬ অক্ষর)"
+        autocomplete="new-password"
       >
 
-      <button onclick="registerUser()">
+      <button id="registerButton">
         Account তৈরি করুন
       </button>
 
-      <button class="google-btn" onclick="googleLogin()">
-        Continue with Google
+      <button
+        id="googleRegisterButton"
+        class="google"
+      >
+        🔵 Google দিয়ে Account খুলুন
       </button>
 
-      <p
+      <div
+        id="backToLoginButton"
         class="link"
-        onclick="showLogin()"
       >
-        আগে থেকেই Account আছে? Login করুন
-      </p>
+        Login-এ ফিরে যান
+      </div>
 
-      <p id="registerMessage" class="message"></p>
+      <div
+        id="registerMessage"
+        class="message"
+      ></div>
 
     </div>
 
 
     <!-- FORGOT PASSWORD -->
+
     <div id="forgotBox" class="box hidden">
 
-      <h2>🔑 Forgot Password</h2>
-
-      <p style="margin-bottom:12px;color:#666;">
-        তোমার Account-এর Email দিলে Password Reset করার জন্য Email পাঠানো হবে।
-      </p>
+      <h2>🔑 Password Reset</h2>
 
       <input
+        id="resetEmail"
         type="email"
-        id="forgotEmail"
-        placeholder="Account Email"
+        placeholder="Account-এর Email"
+        autocomplete="email"
       >
 
-      <button onclick="resetPassword()">
-        Reset Password Email পাঠান
+      <button id="resetButton">
+        Reset Email পাঠান
       </button>
 
-      <p
+      <div
+        id="backFromForgotButton"
         class="link"
-        onclick="showLogin()"
       >
         Login-এ ফিরে যান
-      </p>
+      </div>
 
-      <p id="forgotMessage" class="message"></p>
+      <div
+        id="resetMessage"
+        class="message"
+      ></div>
 
     </div>
 
   </div>
 
 
-  <!-- HOME AREA -->
-  <div id="homeArea" class="container hidden">
+  <!-- =========================
+       HOME SECTION
+  ========================== -->
 
-    <div class="top">
+  <div
+    id="homeSection"
+    class="container home hidden"
+  >
+
+    <div class="logo">
       <h1>📚 Study Tools BD</h1>
-      <p>তোমার পড়াশোনার ডিজিটাল সঙ্গী</p>
     </div>
 
     <div class="welcome">
-      <h2 style="color:white;">
-        👋 স্বাগতম, <span id="welcomeName">Student</span>
+
+      <h2>
+        👋 স্বাগতম
       </h2>
-    </div>
 
-
-    <!-- PROFILE -->
-    <div class="box">
-
-      <h2>👤 My Profile</h2>
-
-      <div class="profile-item">
-        <strong>নাম:</strong>
-        <span id="profileName">-</span>
-      </div>
-
-      <div class="profile-item">
-        <strong>Email:</strong>
-        <span id="profileEmail">-</span>
-      </div>
-
-      <div class="profile-item">
-        <strong>User ID:</strong>
-        <span id="profileUserId">-</span>
-      </div>
-
-      <div class="profile-item">
-        <strong>Login Method:</strong>
-        <span id="profileLoginMethod">-</span>
-      </div>
-
-      <div class="profile-item">
-        <strong>Account Created:</strong>
-        <span id="profileCreatedAt">-</span>
-      </div>
-
-      <input
-        type="tel"
-        id="profilePhone"
-        placeholder="মোবাইল নম্বর"
-      >
-
-      <p class="note">
-        নিজের মোবাইল নম্বর এখানে যোগ বা পরিবর্তন করতে পারবে।
+      <p id="welcomeText">
+        Student
       </p>
 
-      <button onclick="savePhone()">
-        📱 Mobile Number Save
-      </button>
-
-      <p id="profileMessage" class="message"></p>
-
     </div>
 
 
-    <!-- SUBJECTS -->
-    <div class="box">
+    <div class="user-card">
 
-      <h2>📖 Subjects</h2>
+      <h2>👤 My Account</h2>
 
-      <div class="card" onclick="comingSoon()">
-        <h3>বাংলা</h3>
-        <p>বাংলা বিষয়ের পড়াশোনা</p>
+      <div class="user-row">
+        <strong>নাম:</strong>
+        <span id="userName">-</span>
       </div>
 
-      <div class="card" onclick="comingSoon()">
-        <h3>English</h3>
-        <p>English বিষয়ের পড়াশোনা</p>
+      <div class="user-row">
+        <strong>Email:</strong>
+        <span id="userEmail">-</span>
       </div>
 
-      <div class="card" onclick="comingSoon()">
-        <h3>গণিত</h3>
-        <p>গণিতের সূত্র ও সমাধান</p>
+      <div class="user-row">
+        <strong>User ID:</strong>
+        <span id="userId">-</span>
       </div>
 
-      <div class="card" onclick="comingSoon()">
-        <h3>বিজ্ঞান</h3>
-        <p>বিজ্ঞান বিষয়ের পড়াশোনা</p>
-      </div>
-
-      <div class="card" onclick="comingSoon()">
-        <h3>ICT</h3>
-        <p>তথ্য ও যোগাযোগ প্রযুক্তি</p>
-      </div>
-
-      <div class="card" onclick="comingSoon()">
-        <h3>বাংলাদেশ ও বিশ্বপরিচয়</h3>
-        <p>বাংলাদেশ ও বিশ্ব সম্পর্কিত বিষয়</p>
+      <div class="user-row">
+        <strong>Login Method:</strong>
+        <span id="loginMethod">-</span>
       </div>
 
     </div>
 
 
-    <!-- STUDY TOOLS -->
-    <div class="box">
+    <div class="user-card">
 
-      <h2>🛠️ Study Tools</h2>
+      <h2>📚 Study Tools</h2>
 
-      <div class="card" onclick="comingSoon()">
+      <div class="tool">
         <h3>📝 MCQ Quiz</h3>
-        <p>বিভিন্ন বিষয়ে MCQ Practice</p>
+        <p>বিভিন্ন বিষয়ের MCQ Practice</p>
       </div>
 
-      <div class="card" onclick="comingSoon()">
+      <div class="tool">
         <h3>🤖 Question Solver</h3>
         <p>প্রশ্নের ধাপে ধাপে সমাধান</p>
       </div>
 
-      <div class="card" onclick="comingSoon()">
+      <div class="tool">
         <h3>📒 Notes</h3>
-        <p>গুরুত্বপূর্ণ নোট পড়ুন</p>
+        <p>গুরুত্বপূর্ণ নোট</p>
       </div>
 
-      <div class="card" onclick="comingSoon()">
+      <div class="tool">
         <h3>🧮 Calculator</h3>
-        <p>দ্রুত হিসাব করুন</p>
+        <p>দ্রুত হিসাব</p>
       </div>
 
-      <div class="card" onclick="comingSoon()">
+      <div class="tool">
         <h3>⏱️ Study Timer</h3>
-        <p>পড়াশোনার সময় হিসাব করুন</p>
+        <p>পড়াশোনার সময় হিসাব</p>
       </div>
-
-      <div class="card" onclick="comingSoon()">
-        <h3>✍️ Practice</h3>
-        <p>নিজেকে পরীক্ষা করুন</p>
-      </div>
-
-    </div>
-
-
-    <!-- SEARCH -->
-    <div class="box">
-
-      <h2>🔎 Search</h2>
-
-      <input
-        type="text"
-        id="searchInput"
-        placeholder="কিছু খুঁজুন..."
-        oninput="searchCards()"
-      >
-
-      <p id="searchResult" class="message"></p>
 
     </div>
 
 
     <button
-      class="logout-btn"
-      onclick="logoutUser()"
+      id="logoutButton"
+      class="logout"
     >
       🚪 Logout
     </button>
@@ -471,248 +426,397 @@
   </div>
 
 
-  <!-- FIREBASE -->
-  <script type="module">
+  <!-- =========================
+       FIREBASE
+  ========================== -->
 
-    import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 
-    import {
-      getAuth,
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      sendPasswordResetEmail,
-      GoogleAuthProvider,
-      signInWithPopup,
-      signOut,
-      onAuthStateChanged,
-      updateProfile
-    }
-      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 
-    import {
-      getFirestore,
-      doc,
-      getDoc,
-      setDoc,
-      serverTimestamp
-    }
-      from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+  <script>
 
     // Firebase Configuration
+
     const firebaseConfig = {
-      apiKey: "AIzaSyDRRZnfM9kXNJ25R-O2JNIx5GWB7C1vo_w",
-      authDomain: "study-tools-bd.firebaseapp.com",
-      projectId: "study-tools-bd",
-      storageBucket: "study-tools-bd.firebasestorage.app",
-      messagingSenderId: "841810699294",
-      appId: "1:841810699294:web:0e26c1447f1c86e513fa0f",
-      measurementId: "G-LESK93S9YG"
+
+      apiKey:
+        "AIzaSyDRRZnfM9kXNJ25R-O2JNIx5GWB7C1vo_w",
+
+      authDomain:
+        "study-tools-bd.firebaseapp.com",
+
+      projectId:
+        "study-tools-bd",
+
+      storageBucket:
+        "study-tools-bd.firebasestorage.app",
+
+      messagingSenderId:
+        "841810699294",
+
+      appId:
+        "1:841810699294:web:0e26c1447f1c86e513fa0f",
+
+      measurementId:
+        "G-LESK93S9YG"
+
     };
 
 
-    // Firebase চালু
-    const app = initializeApp(firebaseConfig);
+    // Firebase Initialize
 
-    const auth = getAuth(app);
-
-    const db = getFirestore(app);
-
-    const provider = new GoogleAuthProvider();
+    firebase.initializeApp(
+      firebaseConfig
+    );
 
 
-    // -----------------------------------
-    // USER PROFILE FIRESTORE SAVE
-    // -----------------------------------
-
-    async function saveUserProfile(user, loginMethod, phone = "") {
-
-      try {
-
-        const userRef = doc(
-          db,
-          "users",
-          user.uid
-        );
-
-        const userSnap = await getDoc(userRef);
+    const auth =
+      firebase.auth();
 
 
-        // User আগে থেকে না থাকলে
-        if (!userSnap.exists()) {
+    const googleProvider =
+      new firebase.auth.GoogleAuthProvider();
 
-          await setDoc(userRef, {
 
-            name: user.displayName || "Student",
+    // =========================
+    // ELEMENTS
+    // =========================
 
-            email: user.email || "",
+    const authSection =
+      document.getElementById(
+        "authSection"
+      );
 
-            phone: phone || "",
+    const homeSection =
+      document.getElementById(
+        "homeSection"
+      );
 
-            loginMethod: loginMethod,
 
-            createdAt: serverTimestamp()
+    const loginBox =
+      document.getElementById(
+        "loginBox"
+      );
 
-          });
+    const registerBox =
+      document.getElementById(
+        "registerBox"
+      );
 
-        }
+    const forgotBox =
+      document.getElementById(
+        "forgotBox"
+      );
 
-      } catch (error) {
 
-        console.error(
-          "Profile Save Error:",
-          error
-        );
+    // =========================
+    // SHOW LOGIN
+    // =========================
 
-      }
+    function showLogin() {
+
+      loginBox
+        .classList
+        .remove("hidden");
+
+      registerBox
+        .classList
+        .add("hidden");
+
+      forgotBox
+        .classList
+        .add("hidden");
 
     }
 
 
-    // -----------------------------------
-    // REGISTER
-    // -----------------------------------
+    // =========================
+    // SHOW REGISTER
+    // =========================
 
-    window.registerUser = async function() {
+    function showRegister() {
 
-      const name =
-        document.getElementById(
-          "registerName"
-        ).value.trim();
+      loginBox
+        .classList
+        .add("hidden");
 
-      const phone =
-        document.getElementById(
-          "registerPhone"
-        ).value.trim();
+      registerBox
+        .classList
+        .remove("hidden");
 
-      const email =
-        document.getElementById(
-          "registerEmail"
-        ).value.trim();
+      forgotBox
+        .classList
+        .add("hidden");
 
-      const password =
-        document.getElementById(
-          "registerPassword"
-        ).value;
+    }
 
 
-      const message =
-        document.getElementById(
-          "registerMessage"
-        );
+    // =========================
+    // SHOW FORGOT
+    // =========================
+
+    function showForgot() {
+
+      loginBox
+        .classList
+        .add("hidden");
+
+      registerBox
+        .classList
+        .add("hidden");
+
+      forgotBox
+        .classList
+        .remove("hidden");
+
+    }
 
 
-      message.className =
-        "message";
+    // =========================
+    // CREATE ACCOUNT
+    // =========================
+
+    document
+      .getElementById(
+        "registerButton"
+      )
+      .addEventListener(
+        "click",
+        async function() {
+
+          const name =
+            document
+              .getElementById(
+                "registerName"
+              )
+              .value
+              .trim();
 
 
-      if (!name || !phone || !email || !password) {
-
-        message.innerText =
-          "সব তথ্য পূরণ করুন।";
-
-        message.classList.add("error");
-
-        return;
-      }
+          const phone =
+            document
+              .getElementById(
+                "registerPhone"
+              )
+              .value
+              .trim();
 
 
-      if (password.length < 6) {
-
-        message.innerText =
-          "Password কমপক্ষে ৬ অক্ষরের হতে হবে।";
-
-        message.classList.add("error");
-
-        return;
-      }
+          const email =
+            document
+              .getElementById(
+                "registerEmail"
+              )
+              .value
+              .trim();
 
 
-      try {
-
-        const result =
-          await createUserWithEmailAndPassword(
-            auth,
-            email,
-            password
-          );
+          const password =
+            document
+              .getElementById(
+                "registerPassword"
+              )
+              .value;
 
 
-        const user = result.user;
+          const message =
+            document
+              .getElementById(
+                "registerMessage"
+              );
 
 
-        // Firebase Auth profile
-        await updateProfile(
-          user,
-          {
-            displayName: name
+          if (
+            !name ||
+            !phone ||
+            !email ||
+            !password
+          ) {
+
+            message.innerText =
+              "❌ সব তথ্য পূরণ করুন।";
+
+            message.className =
+              "message error";
+
+            return;
+
           }
-        );
 
 
-        // Firestore profile
-        await setDoc(
-          doc(db, "users", user.uid),
-          {
+          if (password.length < 6) {
 
-            name: name,
+            message.innerText =
+              "❌ Password কমপক্ষে ৬ অক্ষরের হতে হবে।";
 
-            email: user.email,
+            message.className =
+              "message error";
 
-            phone: phone,
-
-            loginMethod: "email",
-
-            createdAt: serverTimestamp()
+            return;
 
           }
-        );
 
 
-        message.innerText =
-          "Account সফলভাবে তৈরি হয়েছে।";
+          message.innerText =
+            "⏳ Account তৈরি হচ্ছে...";
 
-        message.classList.add(
-          "success"
-        );
-
-
-      } catch (error) {
-
-        console.error(error);
+          message.className =
+            "message";
 
 
-        message.innerText =
-          getFirebaseErrorMessage(
-            error.code
-          );
+          try {
 
-        message.classList.add(
-          "error"
-        );
-
-      }
-
-    };
+            const result =
+              await auth
+                .createUserWithEmailAndPassword(
+                  email,
+                  password
+                );
 
 
-    // -----------------------------------
+            const user =
+              result.user;
+
+
+            await user.updateProfile({
+
+              displayName:
+                name
+
+            });
+
+
+            // Account তৈরি সফল
+            message.innerText =
+              "✅ Account তৈরি হয়েছে!";
+
+            message.className =
+              "message success";
+
+
+          } catch (error) {
+
+            console.error(
+              error
+            );
+
+
+            message.innerText =
+              "❌ " +
+              getErrorMessage(
+                error.code
+              );
+
+            message.className =
+              "message error";
+
+          }
+
+        }
+      );
+
+
+    // =========================
     // LOGIN
-    // -----------------------------------
+    // =========================
 
-    window.loginUser = async function() {
+    document
+      .getElementById(
+        "loginButton"
+      )
+      .addEventListener(
+        "click",
+        async function() {
 
-      const email =
-        document.getElementById(
-          "loginEmail"
-        ).value.trim();
+          const email =
+            document
+              .getElementById(
+                "loginEmail"
+              )
+              .value
+              .trim();
 
-      const password =
-        document.getElementById(
-          "loginPassword"
-        ).value;
 
+          const password =
+            document
+              .getElementById(
+                "loginPassword"
+              )
+              .value;
+
+
+          const message =
+            document
+              .getElementById(
+                "loginMessage"
+              );
+
+
+          if (!email || !password) {
+
+            message.innerText =
+              "❌ Email এবং Password দিন।";
+
+            message.className =
+              "message error";
+
+            return;
+
+          }
+
+
+          message.innerText =
+            "⏳ Login হচ্ছে...";
+
+          message.className =
+            "message";
+
+
+          try {
+
+            await auth
+              .signInWithEmailAndPassword(
+                email,
+                password
+              );
+
+
+            message.innerText =
+              "✅ Login সফল হয়েছে।";
+
+            message.className =
+              "message success";
+
+
+          } catch (error) {
+
+            console.error(
+              error
+            );
+
+
+            message.innerText =
+              "❌ " +
+              getErrorMessage(
+                error.code
+              );
+
+            message.className =
+              "message error";
+
+          }
+
+        }
+      );
+
+
+    // =========================
+    // GOOGLE LOGIN
+    // =========================
+
+    async function googleLogin() {
 
       const message =
         document.getElementById(
@@ -720,422 +824,260 @@
         );
 
 
-      if (!email || !password) {
+      message.innerText =
+        "⏳ Google Login হচ্ছে...";
 
-        message.innerText =
-          "Email এবং Password দিন।";
-
-        message.className =
-          "message error";
-
-        return;
-      }
+      message.className =
+        "message";
 
 
       try {
 
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          password
-        );
-
-
-        message.innerText =
-          "Login সফল হয়েছে।";
-
-        message.className =
-          "message success";
-
-
-      } catch (error) {
-
-        console.error(error);
-
-        message.innerText =
-          getFirebaseErrorMessage(
-            error.code
+        await auth
+          .signInWithPopup(
+            googleProvider
           );
-
-        message.className =
-          "message error";
-
-      }
-
-    };
-
-
-    // -----------------------------------
-    // GOOGLE LOGIN
-    // -----------------------------------
-
-    window.googleLogin = async function() {
-
-      try {
-
-        const result =
-          await signInWithPopup(
-            auth,
-            provider
-          );
-
-
-        const user =
-          result.user;
-
-
-        // Google user Firestore-এ save
-        await saveUserProfile(
-          user,
-          "google"
-        );
-
-
-      } catch (error) {
-
-        console.error(error);
-
-        alert(
-          getFirebaseErrorMessage(
-            error.code
-          )
-        );
-
-      }
-
-    };
-
-
-    // -----------------------------------
-    // PASSWORD RESET
-    // -----------------------------------
-
-    window.resetPassword = async function() {
-
-      const email =
-        document.getElementById(
-          "forgotEmail"
-        ).value.trim();
-
-      const message =
-        document.getElementById(
-          "forgotMessage"
-        );
-
-
-      if (!email) {
-
-        message.innerText =
-          "Account-এর Email দিন।";
-
-        message.className =
-          "message error";
-
-        return;
-      }
-
-
-      try {
-
-        await sendPasswordResetEmail(
-          auth,
-          email
-        );
-
-
-        message.innerText =
-          "Password Reset Email পাঠানো হয়েছে। Inbox এবং Spam folder দেখুন।";
-
-        message.className =
-          "message success";
-
-
-      } catch (error) {
-
-        console.error(error);
-
-        message.innerText =
-          getFirebaseErrorMessage(
-            error.code
-          );
-
-        message.className =
-          "message error";
-
-      }
-
-    };
-
-
-    // -----------------------------------
-    // SAVE / UPDATE MOBILE NUMBER
-    // -----------------------------------
-
-    window.savePhone = async function() {
-
-      const user =
-        auth.currentUser;
-
-
-      if (!user) {
-
-        return;
-
-      }
-
-
-      const phone =
-        document.getElementById(
-          "profilePhone"
-        ).value.trim();
-
-
-      const message =
-        document.getElementById(
-          "profileMessage"
-        );
-
-
-      if (!phone) {
-
-        message.innerText =
-          "মোবাইল নম্বর দিন।";
-
-        message.className =
-          "message error";
-
-        return;
-
-      }
-
-
-      try {
-
-        await setDoc(
-
-          doc(
-            db,
-            "users",
-            user.uid
-          ),
-
-          {
-            phone: phone
-          },
-
-          {
-            merge: true
-          }
-
-        );
-
-
-        message.innerText =
-          "মোবাইল নম্বর সফলভাবে Save হয়েছে।";
-
-        message.className =
-          "message success";
-
-
-      } catch (error) {
-
-        console.error(error);
-
-        message.innerText =
-          "মোবাইল নম্বর Save করা যায়নি। আবার চেষ্টা করুন।";
-
-        message.className =
-          "message error";
-
-      }
-
-    };
-
-
-    // -----------------------------------
-    // LOAD USER PROFILE
-    // -----------------------------------
-
-    async function loadUserProfile(user) {
-
-      try {
-
-        const userRef =
-          doc(
-            db,
-            "users",
-            user.uid
-          );
-
-
-        const userSnap =
-          await getDoc(userRef);
-
-
-        let data;
-
-
-        if (userSnap.exists()) {
-
-          data =
-            userSnap.data();
-
-        } else {
-
-          // পুরোনো account হলে profile তৈরি
-          const method =
-            user.providerData &&
-            user.providerData.length > 0 &&
-            user.providerData[0].providerId ===
-            "google.com"
-              ? "google"
-              : "email";
-
-
-          await saveUserProfile(
-            user,
-            method
-          );
-
-
-          const newSnap =
-            await getDoc(userRef);
-
-          data =
-            newSnap.exists()
-              ? newSnap.data()
-              : {};
-
-        }
-
-
-        document.getElementById(
-          "profileName"
-        ).innerText =
-          data.name ||
-          user.displayName ||
-          "Student";
-
-
-        document.getElementById(
-          "profileEmail"
-        ).innerText =
-          data.email ||
-          user.email ||
-          "-";
-
-
-        document.getElementById(
-          "profileUserId"
-        ).innerText =
-          user.uid;
-
-
-        document.getElementById(
-          "profileLoginMethod"
-        ).innerText =
-          data.loginMethod ||
-          "email";
-
-
-        document.getElementById(
-          "profilePhone"
-        ).value =
-          data.phone || "";
-
-
-        if (
-          data.createdAt &&
-          data.createdAt.toDate
-        ) {
-
-          document.getElementById(
-            "profileCreatedAt"
-          ).innerText =
-            data.createdAt
-              .toDate()
-              .toLocaleString(
-                "bn-BD"
-              );
-
-        } else {
-
-          document.getElementById(
-            "profileCreatedAt"
-          ).innerText =
-            user.metadata &&
-            user.metadata.creationTime
-              ? user.metadata.creationTime
-              : "-";
-
-        }
-
-
-        document.getElementById(
-          "welcomeName"
-        ).innerText =
-          data.name ||
-          user.displayName ||
-          "Student";
 
 
       } catch (error) {
 
         console.error(
-          "Load Profile Error:",
           error
         );
+
+
+        message.innerText =
+          "❌ " +
+          getErrorMessage(
+            error.code
+          );
+
+        message.className =
+          "message error";
 
       }
 
     }
 
 
-    // -----------------------------------
-    // AUTH STATE
-    // -----------------------------------
+    document
+      .getElementById(
+        "googleLoginButton"
+      )
+      .addEventListener(
+        "click",
+        googleLogin
+      );
 
-    onAuthStateChanged(
-      auth,
-      async (user) => {
+
+    document
+      .getElementById(
+        "googleRegisterButton"
+      )
+      .addEventListener(
+        "click",
+        googleLogin
+      );
+
+
+    // =========================
+    // PASSWORD RESET
+    // =========================
+
+    document
+      .getElementById(
+        "resetButton"
+      )
+      .addEventListener(
+        "click",
+        async function() {
+
+          const email =
+            document
+              .getElementById(
+                "resetEmail"
+              )
+              .value
+              .trim();
+
+
+          const message =
+            document
+              .getElementById(
+                "resetMessage"
+              );
+
+
+          if (!email) {
+
+            message.innerText =
+              "❌ Email দিন।";
+
+            message.className =
+              "message error";
+
+            return;
+
+          }
+
+
+          message.innerText =
+            "⏳ Email পাঠানো হচ্ছে...";
+
+
+          try {
+
+            await auth
+              .sendPasswordResetEmail(
+                email
+              );
+
+
+            message.innerText =
+              "✅ Password Reset Email পাঠানো হয়েছে।";
+
+            message.className =
+              "message success";
+
+
+          } catch (error) {
+
+            console.error(
+              error
+            );
+
+
+            message.innerText =
+              "❌ " +
+              getErrorMessage(
+                error.code
+              );
+
+            message.className =
+              "message error";
+
+          }
+
+        }
+      );
+
+
+    // =========================
+    // NAVIGATION
+    // =========================
+
+    document
+      .getElementById(
+        "createButton"
+      )
+      .onclick =
+        showRegister;
+
+
+    document
+      .getElementById(
+        "backToLoginButton"
+      )
+      .onclick =
+        showLogin;
+
+
+    document
+      .getElementById(
+        "forgotButton"
+      )
+      .onclick =
+        showForgot;
+
+
+    document
+      .getElementById(
+        "backFromForgotButton"
+      )
+      .onclick =
+        showLogin;
+
+
+    // =========================
+    // AUTH STATE
+    // =========================
+
+    auth.onAuthStateChanged(
+      function(user) {
 
         if (user) {
 
-          document
-            .getElementById(
-              "authArea"
-            )
+          authSection
             .classList
             .add("hidden");
 
 
-          document
-            .getElementById(
-              "homeArea"
-            )
+          homeSection
             .classList
             .remove("hidden");
 
 
-          await loadUserProfile(
-            user
-          );
+          document
+            .getElementById(
+              "welcomeText"
+            )
+            .innerText =
+              user.displayName ||
+              user.email ||
+              "Student";
 
+
+          document
+            .getElementById(
+              "userName"
+            )
+            .innerText =
+              user.displayName ||
+              "Student";
+
+
+          document
+            .getElementById(
+              "userEmail"
+            )
+            .innerText =
+              user.email ||
+              "-";
+
+
+          document
+            .getElementById(
+              "userId"
+            )
+            .innerText =
+              user.uid;
+
+
+          const provider =
+            user.providerData &&
+            user.providerData.length
+              ? user.providerData[0]
+                  .providerId
+              : "";
+
+
+          document
+            .getElementById(
+              "loginMethod"
+            )
+            .innerText =
+              provider === "google.com"
+                ? "Google"
+                : "Email & Password";
 
         } else {
 
-          document
-            .getElementById(
-              "authArea"
-            )
+          authSection
             .classList
             .remove("hidden");
 
 
-          document
-            .getElementById(
-              "homeArea"
-            )
+          homeSection
             .classList
             .add("hidden");
 
@@ -1145,5 +1087,86 @@
     );
 
 
-    // -----------------------------------
-  
+    // =========================
+    // LOGOUT
+    // =========================
+
+    document
+      .getElementById(
+        "logoutButton"
+      )
+      .addEventListener(
+        "click",
+        async function() {
+
+          try {
+
+            await auth.signOut();
+
+          } catch (error) {
+
+            console.error(
+              error
+            );
+
+          }
+
+        }
+      );
+
+
+    // =========================
+    // ERROR MESSAGE
+    // =========================
+
+    function getErrorMessage(code) {
+
+      switch (code) {
+
+        case "auth/email-already-in-use":
+          return "এই Email দিয়ে আগে থেকেই Account আছে।";
+
+        case "auth/invalid-email":
+          return "Email ঠিক নয়।";
+
+        case "auth/weak-password":
+          return "Password কমপক্ষে ৬ অক্ষরের হতে হবে।";
+
+        case "auth/user-not-found":
+          return "এই Email দিয়ে কোনো Account পাওয়া যায়নি।";
+
+        case "auth/wrong-password":
+          return "Password ভুল।";
+
+        case "auth/invalid-credential":
+          return "Email অথবা Password ভুল।";
+
+        case "auth/operation-not-allowed":
+          return "Firebase Authentication-এ Email/Password চালু নেই।";
+
+        case "auth/popup-closed-by-user":
+          return "Google Login window বন্ধ করা হয়েছে।";
+
+        case "auth/popup-blocked":
+          return "Google Login popup Block হয়েছে।";
+
+        case "auth/network-request-failed":
+          return "Internet connection সমস্যা হয়েছে।";
+
+        case "auth/too-many-requests":
+          return "অনেকবার চেষ্টা হয়েছে। কিছুক্ষণ পরে আবার চেষ্টা করুন।";
+
+        case "auth/unauthorized-domain":
+          return "এই Website Firebase Authorized Domain-এ নেই।";
+
+        default:
+          return "Firebase Error: " + code;
+
+      }
+
+    }
+
+  </script>
+
+</body>
+        </html>
